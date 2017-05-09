@@ -20,6 +20,9 @@
                 <li {{{ explode('/', Request::path())[0] === 'expenseTypes' ? 'class=active' : '' }}}>
                     <a href="/expenseTypes">Expense Types</a>
                 </li>
+                <li {{{ explode('/', Request::path())[0] === 'incomeTypes' ? 'class=active' : '' }}}>
+                    <a href="/incomeTypes">Income Types</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
