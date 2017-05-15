@@ -15,5 +15,6 @@ Route::get('/', 'DashboardController@index');
 Route::resource('expenseTypes', 'ExpenseTypeController');
 Route::resource('incomeTypes', 'IncomeTypeController');
 Route::resource('expenses', 'ExpenseController');
+Route::resource('incomes', 'IncomeController');
 
 Auth::routes();

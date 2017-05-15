@@ -15,9 +15,10 @@ class IncomeController extends Controller
      */
     public function index()
     {
-        $incomes = Income::all();
+        $incomes = Income::with('type')->get();
+        $incomeTypes = IncomeType::all();
 
-        return view('income.list', compact('incomes'));
+        return view('income.list', compact('incomes', 'incomeTypes'));
     }
 
     /**
@@ -53,7 +54,9 @@ class IncomeController extends Controller
      */
     public function show(Income $income)
     {
-        return view('income.show', compact('income'));
+        $incomeTypes = IncomeType::all();
+
+        return view('income.show', compact('income', 'incomeTypes'));
     }
 
     /**
@@ -64,7 +67,9 @@ class IncomeController extends Controller
      */
     public function edit(Income $income)
     {
-        return view('income.edit', compact('income'));
+        $incomeTypes = IncomeType::all();
+
+        return view('income.edit', compact('income', 'incomeTypes'));
     }
 
     /**
@@ -78,7 +83,7 @@ class IncomeController extends Controller
     {
         $income->update($request->all());
 
-        return redirect('/');
+        return redirect('/incomes');
     }
 
     /**
@@ -91,6 +96,6 @@ class IncomeController extends Controller
     {
         $income->delete();
 
-        return redirect('/');
+        return redirect('/incomes');
     }
 }

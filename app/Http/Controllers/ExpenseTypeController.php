@@ -14,9 +14,9 @@ class ExpenseTypeController extends Controller
      */
     public function index()
     {
-        $types = ExpenseType::all();
+        $expenseTypes = ExpenseType::all();
 
-        return view('expenseType.list', compact('types'));
+        return view('expenseType.list', compact('expenseTypes'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ExpenseTypeController extends Controller
      */
     public function create()
     {
-        return view('expenseType.form');
+        return view('expenseType.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class ExpenseTypeController extends Controller
      */
     public function edit(ExpenseType $expenseType)
     {
-        return view('expenseType.form', compact('expenseType'));
+        return view('expenseType.edit', compact('expenseType'));
     }
 
     /**

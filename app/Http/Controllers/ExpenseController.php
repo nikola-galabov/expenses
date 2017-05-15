@@ -15,7 +15,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
+        $expenses = Expense::with('type')->get();
         $types = ExpenseType::all();
 
         return view('expense.list', compact('expenses', 'types'));

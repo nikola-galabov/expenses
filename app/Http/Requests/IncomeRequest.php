@@ -24,8 +24,8 @@ class IncomeRequest extends FormRequest
     public function rules()
     {
         return [
-            'type_id' => 'required',
-            'amount' => 'decimal|required',
+            'type_id' => 'required|exists:income_types,id',
+            'amount' => 'numeric|required',
             'name' => 'required'
         ];
     }

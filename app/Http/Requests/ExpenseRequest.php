@@ -26,7 +26,8 @@ class ExpenseRequest extends FormRequest
     {
         return [
             'product' => 'required',
-            'type_id' => 'required'
+            'type_id' => 'required|exists:expense_types,id',
+            'price' => 'required|numeric'
         ];
     }
 }

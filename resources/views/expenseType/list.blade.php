@@ -8,7 +8,7 @@
             <h3 class="panel-title">Expense Types</h3>
         </div>
         <div class="panel-body">
-            @if(count($types))
+            @if(count($expenseTypes))
                 <table class="table">
                     <thead>
                         <tr>
@@ -19,14 +19,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($types as $type)
+                        @foreach($expenseTypes as $expenseType)
                             <tr>
-                                <td>{{ $type->id }}</td>
-                                <td>{{ $type->name }}</td>
-                                <td>{{ $type->created_at->toDateTimeString() }}</td>
+                                <td>{{ $expenseType->id }}</td>
+                                <td>{{ $expenseType->name }}</td>
+                                <td>{{ $expenseType->created_at->toDateTimeString() }}</td>
                                 <td>
-                                    <a href="/expenseTypes/{{ $type->id }}/edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-                                    <button data-id="{{ $type->id }}" class="btn btn-link" data-toggle="modal" data-target="#delete-modal"><span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span></button>
+                                    @include(
+                                        'partials.modal',
+                                        [
+                                            'modal' => [
+                                                'id' => 'edit-expenseType-' . $expenseType->id,
+                                                'header' => 'Edit Expense Type',
+                                                'body' => 'expenseType._form',
+                                                'openButtonText' => '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>',
+                                                'openButtonClass' => 'btn-link',
+                                                'noFooter' => true,
+                                                'footer' => null,
+                                                'confirmBtnId' => 'confirm-edit-expenseType-' . $expenseType->id . '-btn',
+                                                'confirmButtonClass' => 'btn-primary',
+                                                'confirmButtonText' => 'Confirm'
+                                            ]
+                                        ]
+                                    )
+                                    
+                                    @include(
+                                        'partials.modal',
+                                        [
+                                            'modal' => [
+                                                'id' => 'delete-expenseType-' . $expenseType->id,
+                                                'header' => 'Delete Expense Type',
+                                                'body' => 'Are you sure that you want to delete this expence tpye?' .
+                                                    '<form action="/expenseTypes/' . $expenseType->id . '" method="post">' .
+                                                        csrf_field() .
+                                                        '<input type="hidden" name="_method" value="delete">' .
+                                                    '</form>',
+                                                'openButtonText' => '<span class="text-danger glyphicon glyphicon-remove" aria-hidden="true"></span>',
+                                                'openButtonClass' => 'btn-link',
+                                                'noFooter' => false,
+                                                'footer' => null,
+                                                'confirmBtnId' => 'confirm-delete-expenseType-' . $expenseType->id . '-btn',
+                                                'confirmButtonClass' => 'btn-danger',
+                                                'confirmButtonText' => 'Delete'
+                                            ]
+                                        ]
+                                    )
                                 </td>
                             </tr>
                         @endforeach
@@ -38,29 +75,27 @@
                 </p>
             @endif
 
-            <a class="btn btn-primary" href="/expenseTypes/create">Create</a>
-        </div>        
-    </div>
+            @php
+                unset($expenseType)
+            @endphp
 
-    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="deleteModalLabel">Delete Expense Type</h4>
-            </div>
-            <div class="modal-body">
-                <p class="text-danger">Are you sure that you want to delete this expense type?</p>
-                <form id="delete-expense-form" method="post" action="/expenseTypes/">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="_method" value="delete">
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button id="confirm-delete" type="button" class="btn btn-danger">Delete</button>
-            </div>
-            </div>
-        </div>
-    </div>    
+            @include(
+                'partials.modal',
+                [
+                    'modal' => [
+                        'id' => 'create-expeseType',
+                        'header' => 'Create Expense Type',
+                        'body' => 'expenseType._form',
+                        'openButtonText' => 'Create',
+                        'openButtonClass' => 'btn-primary',
+                        'noFooter' => true,
+                        'footer' => null,
+                        'confirmBtnId' => 'confirm-create-expeseType-btn',
+                        'confirmButtonClass' => 'btn-primary',
+                        'confirmButtonText' => 'Confirm'
+                    ]
+                ]
+            )
+        </div>        
+    </div> 
 @endsection

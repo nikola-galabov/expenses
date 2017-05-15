@@ -12,7 +12,7 @@ class Income extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',
-        'tpye_id',
+        'type_id',
         'amount'
     ];
 

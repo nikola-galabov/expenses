@@ -20,6 +20,9 @@
                 <li {{{ explode('/', Request::path())[0] === 'expenseTypes' ? 'class=active' : '' }}}>
                     <a href="/expenseTypes">Expense Types</a>
                 </li>
+                <li {{{ explode('/', Request::path())[0] === 'incomes' ? 'class=active' : '' }}}>
+                    <a href="/incomes">Incomes</a>
+                </li>
                 <li {{{ explode('/', Request::path())[0] === 'incomeTypes' ? 'class=active' : '' }}}>
                     <a href="/incomeTypes">Income Types</a>
                 </li>

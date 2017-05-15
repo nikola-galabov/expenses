@@ -44,7 +44,7 @@
             @foreach($types as $type)
                 @php
                     $selected = false;
-                    if(isset($expense) && $expense->type->id === $type->id) {
+                    if(isset($expense) && !is_null($expense->type) && $expense->type->id === $type->id) {
                         $selected = true;
                     }
                 @endphp
@@ -60,8 +60,8 @@
         @endif
     </div>
 
-    <div class="form-group">
-        <button class="btn btn-primary">
+    <div class="form-group clearfix">
+        <button class="btn btn-primary pull-right">
             {{ isset($expense) ? 'Update' : 'Create' }}
         </button>
     </div>

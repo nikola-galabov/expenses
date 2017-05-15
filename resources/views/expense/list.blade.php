@@ -25,8 +25,8 @@
                             <tr>
                                 <td>{{ $expense->id }}</td>
                                 <td>{{ $expense->product }}</td>
-                                <td>{{ $expense->type->name }}</td>
-                                <td>{{ $expense->price }}</td>
+                                <td>{{ !is_null($expense->type) ? $expense->type->name : 'N/A' }}</td>
+                                <td>{{ money_format('$%i', $expense->price) }}</td>
                                 <td>{{ $expense->created_at->toDateTimeString() }}</td>
                                 <td>
                                     <a class="btn btn-link" href="/expenses/{{ $expense->id }}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>                                    
@@ -90,8 +90,8 @@
                 'partials.modal',
                 [
                     'modal' => [
-                        'openButtonText' => '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>',
-                        'openButtonClass' => 'btn-success btn-lg',
+                        'openButtonText' => 'Create',
+                        'openButtonClass' => 'btn-primary',
                         'header' => 'Create Expense',
                         'id' => 'create-expense',
                         'body' => 'expense._form',

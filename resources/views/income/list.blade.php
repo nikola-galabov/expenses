@@ -5,7 +5,7 @@
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Income Types</h3>
+            <h3 class="panel-title">Incomes</h3>
         </div>
 
         <div class="panel-body">
@@ -14,57 +14,67 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
+                        <th>Type</th>
+                        <th>Amount</th>
                         <th>Actions</th>
                     </tr>
-                </thead>
+                </thead>                  
                 <tbody>
-                    @unless(count($incomeTypes) > 0)
+                    @unless(count($incomes))
                         <tr>
-                            <td colspan="3">There are no records found.</td>
+                            <td colspan="3">
+                                There are no incomes entered.
+                            </td>
                         </tr>
                     @endunless
-
-                    @foreach($incomeTypes as $type)
-                        <tr>
-                            <td>{{ $type->id }}</td>
-                            <td>{{ $type->name }}</td>
+                    
+                    @foreach($incomes as $income)
+                        <tr>                            
+                            <td>{{ $income->id }}</td>
+                            <td>{{ $income->name }}</td>
+                            <td>{{ $income->type->name }}</td>
+                            <td>{{ money_format('$%i', $income->amount) }}</td>
                             <td>
+                                <a class="btn btn-link" href="/incomes/{{ $income->id }}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+                                {{-- <a href="/incomes/{{ $income->id }}/edit">Edit</a> --}}
+
                                 @include(
                                     'partials.modal',
                                     [
                                         'modal' => [
-                                            'id' => 'incomeType' . $type->id . '-edit',
-                                            'header' => 'Edit Income Type',
-                                            'body' => 'incomeType._form',
+                                            'id' => 'edit-income-',
+                                            'header' => 'Edit Income',
+                                            'body' => 'income._form',
                                             'openButtonText' => '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>',
                                             'openButtonClass' => 'btn-link',
                                             'noFooter' => true,
                                             'footer' => null,
-                                            'confirmBtnId' => 'confirm-incomeType' . $type->id . '-edit-btn',
+                                            'confirmBtnId' => 'confirm-edit-income--btn',
                                             'confirmButtonClass' => 'btn-primary',
-                                            'confirmButtonText' => 'Update'
+                                            'confirmButtonText' => 'Confirm'
                                         ]
                                     ]
                                 )
-                                
+
                                 @include(
                                     'partials.modal',
                                     [
                                         'modal' => [
-                                            'id' => 'incomeType' . $type->id . '-delete',
-                                            'header' => 'Delete Income Type',
-                                            'body' => '<p>Are you sure you want to delete this income type?</p>' .
-                                                '<form action="/incomeTypes/' . $type->id . '" method="post">' . 
+                                            'id' => 'delete-income-' . $income->id,
+                                            'header' => 'Delete Income',
+                                            'body' => '<p>Are you sure you want to delete this income?</p>' .
+                                                '<form action="/incomes/' . $income->id . '" method="POST">' .
                                                     csrf_field() .
                                                     '<input type="hidden" name="_method" value="DELETE">' .
+                                                    '<button class="btn btn-danger">Delete</button>' .
                                                 '</form>',
-                                            'openButtonText' => '<span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>',
+                                            'openButtonText' => '<span class="text-danger glyphicon glyphicon-remove" aria-hidden="true"></span>',
                                             'openButtonClass' => 'btn-link',
                                             'noFooter' => false,
                                             'footer' => null,
-                                            'confirmBtnId' => 'confirm-incomeType' . $type->id . '-edit-btn',
-                                            'confirmButtonClass' => 'btn-danger',
-                                            'confirmButtonText' => 'Delete'
+                                            'confirmBtnId' => 'confirm-delete-income-' . $income->id .'-btn',
+                                            'confirmButtonClass' => 'btn-primary',
+                                            'confirmButtonText' => 'Confirm'
                                         ]
                                     ]
                                 )
@@ -74,27 +84,23 @@
                 </tbody>
             </table>
 
-            @php
-                unset($type);
-            @endphp
-
             @include(
                 'partials.modal',
                 [
                     'modal' => [
-                        'id' => 'create-incomeType',
-                        'header' => 'Create Income Type',
-                        'body' => 'incomeType._form',
+                        'id' => 'create-income',
+                        'header' => 'Create Income',
+                        'body' => 'income._form',
                         'openButtonText' => 'Create',
                         'openButtonClass' => 'btn-primary',
                         'noFooter' => true,
                         'footer' => null,
-                        'confirmBtnId' => 'confirm-create-incomeType-btn',
+                        'confirmBtnId' => 'confirm-create-income-btn',
                         'confirmButtonClass' => 'btn-primary',
-                        'confirmButtonText' => 'Update'
+                        'confirmButtonText' => 'Confirm'
                     ]
                 ]
             )
         </div>
     </div>
-@endsection
+@endsection        
