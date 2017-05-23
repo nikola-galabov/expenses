@@ -28,4 +28,4 @@ window.select2 = require('select2');
 
 window.Chart = require('chart.js');
 
-// window.datepicker = require('datepicker');
+window.datepicker = require('bootstrap-datepicker');

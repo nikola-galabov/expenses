@@ -27,3 +27,5 @@ $('.modal-confirm-btn').on('click', function() {
         $modalBodyForm.submit();
     }
 });
+
+$('.datepicker').datepicker();

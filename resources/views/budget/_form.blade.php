@@ -9,8 +9,8 @@
         <label for="start_date" class="control-label">From:</label>
         <input 
             id="start_date" 
-            type="date" 
-            class="form-control" 
+            type="text" 
+            class="form-control datepicker" 
             name="start_date" 
             value="{{ isset($budget) ? $budget->start_date->format('Y-m-d') : old('start_date') }}"
         >
@@ -26,8 +26,8 @@
         <label for="end_date" class="control-label">To:</label>
         <input 
             id="end_date" 
-            type="date" 
-            class="form-control" 
+            type="text" 
+            class="form-control datepicker" 
             name="end_date" 
             value="{{ isset($budget) ? $budget->end_date->format('Y-m-d') : old('end_date') }}"            
         >
