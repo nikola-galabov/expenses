@@ -16,5 +16,6 @@ Route::resource('expenseTypes', 'ExpenseTypeController');
 Route::resource('incomeTypes', 'IncomeTypeController');
 Route::resource('expenses', 'ExpenseController');
 Route::resource('incomes', 'IncomeController');
+Route::resource('budgets', 'BudgetController');
 
 Auth::routes();
